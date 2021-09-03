@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-CONFIG_FILE = "./client.conf"
+CONFIG_FILE = "/etc/garnetdg_monitor.conf"
 
 import configparser
 import os
