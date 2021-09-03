@@ -1,0 +1,12 @@
+[Unit]
+Description=Garnet DeGelder's Remote System Monitor
+
+[Service]
+Type=simple
+User=garnetdegelder
+WorkingDirectory=/home/garnetdegelder/garnetdg_monitor/
+ExecStart=/home/garnetdegelder/garnetdg_monitor/ping.py
+Restart=always
+
+[Install]
+WantedBy=network.target
