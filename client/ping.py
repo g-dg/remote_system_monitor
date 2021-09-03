@@ -4,7 +4,6 @@ CONFIG_FILE = "./client.conf"
 
 import configparser
 import os
-import multiprocessing
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -16,11 +15,11 @@ config_parser.read(CONFIG_FILE)
 config = {
 	"ServerAddress": config_parser["main"]["ServerAddress"],
 	"ClientKey": config_parser["main"]["ClientKey"],
-	"UpdateDelay": config_parser["main"]["UpdateDelay"],
+	"UpdateDelay": float(config_parser["main"]["UpdateDelay"]),
 }
 
 while True:
-	load = os.getloadavg()[0] / multiprocessing.cpu_count()
+	load = os.getloadavg()[0] / os.cpu_count()
 
 	request_vars = {
 		"key": config["ClientKey"],
@@ -36,4 +35,4 @@ while True:
 	except urllib.error.HTTPError:
 		pass
 
-	time.sleep(float(config["UpdateDelay"]))
+	time.sleep(config["UpdateDelay"])
