@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Garnet DeGelder's Simple Remote System Monitor</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style>
+
+		</style>
+	</head>
+
+	<body>
+		<h1>Garnet DeGelder's Simple Remote System Monitor</h1>
+
+		<div id="main">Loading...</div>
+
+		<script>
+			function update() {
+				fetch("./api.php?action=get_status_all")
+					.then(response => response.json())
+					.then(data => {
+
+						let main = document.getElementById("main");
+						main.innerHTML = "";
+
+						data.forEach(system => {
+							let el = document.createElement("div");
+							el.innerText = system.name + " " + (system.online ? "\u2713" : "\u2717") + " " + system.loadavg;
+							main.appendChild(el);
+						});
+					});
+			}
+
+			//window.addEventListener("readystatechange", event => {
+				//if (document.readyState == "complete") {
+					update();
+					window.setInterval(() => update(), 1000);
+				//}
+			//});
+
+		</script>
+	</body>
+
+</html>
