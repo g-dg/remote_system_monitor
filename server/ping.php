@@ -13,11 +13,15 @@ if (!isset($_POST['key'])) {
 
 
 // check if client exists
-$stmt = $db->prepare('SELECT COUNT() FROM "systems" WHERE "key" = ?;');
+$stmt = $db->prepare('SELECT "id" FROM "systems" WHERE "key" = ?;');
 $stmt->execute([$_POST['key']]);
 $res = $stmt->fetchAll();
 
-if ($res[0][0] < 1) {
+$client_id = null;
+
+if (isset($res[0])) {
+	$client_id = $res[0]['id'];
+} else {
 	http_response_code(404);
 	exit('Client key not found.');
 }
@@ -32,7 +36,7 @@ if (isset($_POST['loadavg'])) {
 
 // insert ping into database
 $stmt = $db->prepare('INSERT INTO "pings" ("system_id", "timestamp", "loadavg") VALUES (?, ?, ?);');
-$stmt->execute([$_POST['key'], time(), $loadavg]);
+$stmt->execute([$client_id, time(), $loadavg]);
 
 
 http_response_code(200);
