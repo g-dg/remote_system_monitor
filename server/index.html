@@ -17,6 +17,8 @@
 		<div id="main">Loading...</div>
 
 		<script>
+			let timeout = null;
+
 			function update() {
 				fetch("./api.php?action=get_status_all")
 					.then(response => response.json())
@@ -30,15 +32,11 @@
 							el.innerText = system.name + " " + (system.online ? "\u2713" : "\u2717") + " " + system.loadavg;
 							main.appendChild(el);
 						});
+
+						timeout = window.setTimeout(() => update(), 1000);
 					});
 			}
-
-			//window.addEventListener("readystatechange", event => {
-				//if (document.readyState == "complete") {
-					update();
-					window.setInterval(() => update(), 1000);
-				//}
-			//});
+			update();
 
 		</script>
 	</body>
