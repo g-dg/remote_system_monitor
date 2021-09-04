@@ -20,23 +20,28 @@
 			let timeout = null;
 
 			function update() {
-				fetch("./api.php?action=get_status_all")
-					.then(response => response.json())
-					.then(data => {
+				if (!document.hidden) {
 
-						let main = document.getElementById("main");
-						main.innerHTML = "";
+					fetch("./api.php?action=get_status_all")
+						.then(response => response.json())
+						.then(data => {
 
-						data.forEach(system => {
-							let el = document.createElement("div");
-							el.innerText = system.name + " " + (system.online ? "\u2713" : "\u2717") + " " + system.loadavg;
-							main.appendChild(el);
+							let main = document.getElementById("main");
+							main.innerHTML = "";
+
+							data.forEach(system => {
+								let el = document.createElement("div");
+								el.innerText = system.name + " " + (system.online ? "\u2713" : "\u2717") + " " + system.loadavg;
+								main.appendChild(el);
+							});
+
+							timeout = window.setTimeout(() => update(), 1000);
 						});
-
-						timeout = window.setTimeout(() => update(), 1000);
-					});
+				}
 			}
 			update();
+
+			document.addEventListener("visibilitychange", update);
 
 		</script>
 	</body>
