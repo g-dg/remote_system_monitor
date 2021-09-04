@@ -11,7 +11,7 @@ require('config.php');
 $db = new PDO('sqlite:' . DATABASE_FILE);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$db->exec('PRAGMA busy_timeout = 5000;');
+$db->exec('PRAGMA busy_timeout = 10000;');
 $db->exec('PRAGMA journal_mode = WAL;');
 $db->exec('PRAGMA synchronous = NORMAL;');
 $db->exec('PRAGMA foreign_keys = ON;');
@@ -39,7 +39,10 @@ $db->exec('CREATE INDEX IF NOT EXISTS "idx_pings_timestamp" ON "pings" ("timesta
 $db->commit();
 
 
+date_default_timezone_set('UTC');
+
+
 // delete old ping records from database
-$stmt = $db->prepare('DELETE FROM "pings" WHERE "timestamp" < ?;');
-$stmt->execute([time() - PING_HISTORY_LENGTH]);
+$delete_ping_stmt = $db->prepare('DELETE FROM "pings" WHERE "timestamp" < ?;');
+$delete_ping_stmt->execute([time() - PING_HISTORY_LENGTH]);
 
