@@ -41,5 +41,5 @@ $db->commit();
 
 // delete old ping records from database
 $stmt = $db->prepare('DELETE FROM "pings" WHERE "timestamp" < ?;');
-$stmt->execute(time() - PING_HISTORY_LENGTH);
+$stmt->execute([time() - PING_HISTORY_LENGTH]);
 
