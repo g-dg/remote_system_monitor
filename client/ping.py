@@ -32,6 +32,8 @@ while True:
 		response = urllib.request.urlopen(request, timeout = 5.0)
 		response_text = response.read()
 		response.close()
+	except urllib.error.URLError:
+		pass
 	except urllib.error.HTTPError:
 		pass
 
