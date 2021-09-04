@@ -31,7 +31,7 @@
 
 							data.forEach(system => {
 								let el = document.createElement("div");
-								el.innerText = system.name + " " + (system.online ? "\u2713" : "\u2717") + " " + system.loadavg;
+								el.innerText = system.name + " " + (system.online ? "\u2713" : "\u2717") + " " + (system.loadavg !== null ? system.loadavg : "");
 								main.appendChild(el);
 							});
 
