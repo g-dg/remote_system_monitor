@@ -11,6 +11,8 @@ if (!defined('GARNETDG_MONITOR_VERSION')) {
 // Will be created if doesn't exist
 define('DATABASE_FILE', './database.sqlite3');
 
-
 // How long to keep pings in the database (in seconds)
 define('PING_HISTORY_LENGTH', 86400);
+
+// How many seconds must pass since last ping for a system to appear as offline
+define('OFFLINE_WAIT', 5);
