@@ -33,7 +33,7 @@ $db->exec('CREATE TABLE IF NOT EXISTS "pings" (
 	"loadavg" REAL
 );');
 
-$db->exec('CREATE INDEX IF NOT EXISTS "idx_pings_systemId" ON "pings" ("system_id"');
+$db->exec('CREATE INDEX IF NOT EXISTS "idx_pings_systemId" ON "pings" ("system_id");');
 $db->exec('CREATE INDEX IF NOT EXISTS "idx_pings_timestamp" ON "pings" ("timestamp");');
 
 $db->commit();
