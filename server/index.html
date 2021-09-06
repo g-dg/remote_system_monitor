@@ -30,9 +30,36 @@
 							main.innerHTML = "";
 
 							data.forEach(system => {
-								let el = document.createElement("div");
-								el.innerText = (system.online ? "\u2713" : "\u2717") + " " + system.name + (system.loadavg !== null ? " (" + system.loadavg + ")" : "");
-								main.appendChild(el);
+								let mainEl = document.createElement("div");
+								let onlineEl = document.createElement("span");
+								let nameEl = document.createElement("span");
+								let loadEl = document.createElement("span");
+
+								onlineEl.innerText = system.online ? "\u2713" : "\u2717";
+								onlineEl.style.color = system.online ? "green" : "red";
+								onlineEl.style.fontWeight = "bold";
+
+								nameEl.innerText = system.name;
+								nameEl.style.fontWeight = "bold";
+
+								loadEl.innerText = system.loadavg !== null ? "(" + system.loadavg + ")" : "";
+								loadEl.style.backgroundColor = "#4f4";
+								if (system.loadavg >= 0.25)
+									loadEl.style.backgroundColor = "#8f4";
+								if (system.loadavg >= 0.5)
+									loadEl.style.backgroundColor = "#ff4";
+								if (system.loadavg >= 1.0)
+									loadEl.style.backgroundColor = "#f84";
+								if (system.loadavg >= 1.5)
+									loadEl.style.backgroundColor = "#f44"
+
+								mainEl.append(onlineEl);
+								mainEl.innerHTML += " ";
+								mainEl.append(nameEl);
+								mainEl.innerHTML += " ";
+								mainEl.append(loadEl);
+
+								main.appendChild(mainEl);
 							});
 
 							timeout = window.setTimeout(() => update(), 1000);
