@@ -63,6 +63,9 @@
 							});
 
 							timeout = window.setTimeout(() => update(), 1000);
+						})
+						.catch(error => {
+							timeout = window.setTimeout(() => update(), 1000);
 						});
 				}
 			}
